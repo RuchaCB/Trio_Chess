@@ -13,8 +13,8 @@ pawn8 = turtle.Turtle()
 
 # click the image icon in the top right of the code window to see
 # which images are available in this trinket
-image = "C://SW_690//first//big_hex_b.gif"
-p = "C://SW_690//first//Pawn.gif"
+image = "big_hex_b.gif"
+p = "Pawn.gif"
 screen.bgpic(image)
 pawn1.shape("circle")
 pawn1.color("white")
