@@ -7,9 +7,7 @@ EMPTY_SQUARE = " "
  
 class Model(object):
     def __init__(self):
-        '''create a chess board with pieces positioned for a new game
-        row ordering is reversed from normal chess representations
-        but corresponds to a top left screen coordinate 
+        '''create a chess board with pieces positioned  
         '''
          
         self.board = []
@@ -47,10 +45,9 @@ EMPTY_SQUARE = " "
  
 class Model(object):
     def __init__(self):
-        '''create a chess board with pieces positioned for a new game
-        row ordering is reversed from normal chess representations
-        but corresponds to a top left screen coordinate 
-        '''
+        """create a chess board with pieces positioned 
+        row by column ordering
+        """
          
         self.board = []
         pawn_base = "P "*8
@@ -65,24 +62,22 @@ class Model(object):
         self.board.append(white_pawns.split(" "))
         self.board.append(white_pieces.split(" "))
  
-    def move(self, start,  destination):
+    def move(self, begin,  dest):
         ''' move a piece located at the start location to destination
-        (each an instance of BoardLocation)
-        Does not check whether the move is valid for the piece
         '''
-        # error checking
-        for c in [start, destination]:  # check coordinates are valid
+        # sanity checking
+        for c in [begin, dest]:  # check coordinates are valid
             if c.i > 7 or c.j > 7 or c.i <0 or c.j <0:
                 return
-        if start.i == destination.i and start.j == destination.j: # don't move to same location
+        if begin.i == dest.i and begin.j == dest.j: # don't move to same location
             return
  
-        if self.board[start.i][start.j] == EMPTY_SQUARE:  #nothing to move
+        if self.board[begin.i][begin.j] == EMPTY_SQUARE:  #nothing to move
             return
              
-        f = self.board[start.i][start.j]
-        self.board[destination.i][destination.j] = f
-        self.board[start.i][start.j] = EMPTY_SQUARE
+        f = self.board[begin.i][begin.j]
+        self.board[dest.i][dest.j] = f
+        self.board[begin.i][begin.j] = EMPTY_SQUARE
  
  
 class BoardLocation(object):
@@ -101,7 +96,7 @@ class View(object):
             row_marker = 8-i
             print("%s: %s"%(row_marker,  row))
          
- 
+ # Modelling the view of the board
 class Controller(object):
     def __init__(self):
         self.model = Model()
@@ -121,13 +116,10 @@ class Controller(object):
             self.model.move(start, destination)
              
     def parse_move(self, move):
-        ''' Very basic move parsing 
+        ''' 
+        Major basic move parsing if
         given a move in the form ab-cd where a and c are in [a,b,c,d,e,f,g,h]
-        and b and d are numbers from 1 to 8 convert into BoardLocation instances
-        for start (ab) and destination (cd)
-        Does not deal with castling (ie 0-0 or 0-0-0) or bare pawn moves (e4)
-        or capture d4xe5 etc
-        No error checking! very fragile
+      
         '''
          
         s, d = move.split("-")
@@ -142,7 +134,7 @@ class Controller(object):
  
         return start,  destination
          
- 
+# Testing the code
 if __name__=="__main__":
     C = Controller()
     C.run()
