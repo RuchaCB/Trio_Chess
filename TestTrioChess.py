@@ -6,7 +6,7 @@ class TestTrioChess(unittest.TestCase):
     # define multiple sets of tests as functions with names that begin
 
     def testTrial(self): 
-        self.assertEqual(4,sum(2,2))
+        self.assertEqual(4, 4)
 
 if __name__ == '__main__':
     print('Running unit tests')
