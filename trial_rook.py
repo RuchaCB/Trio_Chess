@@ -14,6 +14,7 @@ POLYGON = turtle.Turtle()
 SCREEN = turtle.Screen()
 
 """Blue Pieces"""
+BR2 = turtle.Turtle()
 BR1 = turtle.Turtle()
 BN1 = turtle.Turtle()
 BB1 = turtle.Turtle()
@@ -21,7 +22,6 @@ BQ = turtle.Turtle()
 BK = turtle.Turtle()
 BB2 = turtle.Turtle()
 BN2 = turtle.Turtle()
-BR2 = turtle.Turtle()
 BP1 = turtle.Turtle()
 BP2 = turtle.Turtle()
 BP3 = turtle.Turtle()
@@ -31,6 +31,7 @@ BP6 = turtle.Turtle()
 BP7 = turtle.Turtle()
 BP8 = turtle.Turtle()
 """Red Pieces"""
+RR2 = turtle.Turtle()
 RR1 = turtle.Turtle()
 RN1 = turtle.Turtle()
 RB1 = turtle.Turtle()
@@ -38,7 +39,6 @@ RQ = turtle.Turtle()
 RK = turtle.Turtle()
 RB2 = turtle.Turtle()
 RN2 = turtle.Turtle()
-RR2 = turtle.Turtle()
 RP1 = turtle.Turtle()
 RP2 = turtle.Turtle()
 RP3 = turtle.Turtle()
@@ -70,23 +70,22 @@ BLUE = [BR1, BN1, BB1, BQ, BK, BB2, BN2, BR2, BP1, BP2, BP3, BP4, BP5, BP6, BP7,
 RED = [RR1, RN1, RB1, RQ, RK, RB2, RN2, RR2, RP1, RP2, RP3, RP4, RP5, RP6, RP7, RP8]
 GREEN = [GR1, GN1, GB1, GQ, GK, GB2, GN2, GR2, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8]
 
-
 PIECES = ['R1', 'N1', 'B1', 'Q', 'K', 'B2', 'N2', 'R2',
           'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'
          ]
 
-"""Destinations where the pices will be added at the beginig of the game"""
-BLUE_DESTI = ['E4', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1',
+BLUE_DESTI = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1', 'H1',
               'A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2'
              ]
-RED_DESTI = ['D4', 'K8', 'J8', 'I8', 'D8', 'C8', 'B8', 'A8',
+RED_DESTI = ['L8', 'K8', 'J8', 'I8', 'D8', 'C8', 'B8', 'A8',
              'L7', 'K7', 'J7', 'I7', 'D7', 'C7', 'B7', 'A7'
             ]
-GREEN_DESTI = ['I9', 'G12', 'F12', 'E12', 'I12', 'J12', 'K12', 'L12',
+GREEN_DESTI = ['H12', 'G12', 'F12', 'E12', 'I12', 'J12', 'K12', 'L12',
                'H11', 'G11', 'F11', 'E11', 'I11', 'J11', 'K11', 'L11'
               ]
-
-"""Lists defined for adding GIFs the images are stored as ex. bR1.gif"""
+PIECES = ['R1', 'N1', 'B1', 'Q', 'K', 'B2', 'N2', 'R2',
+          'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8'
+         ]
 BLUE_STR = ['bR1', 'bN1', 'bB1', 'bQ', 'bK', 'bB2', 'bN2', 'bR2',
             'bP1', 'bP2', 'bP3', 'bP4', 'bP5', 'bP6', 'bP7', 'bP8'
            ]
@@ -101,6 +100,7 @@ for b, r, g in zip(BLUE_STR, RED_STR, GREEN_STR):
     SCREEN.addshape(b+'.gif')
     SCREEN.addshape(r+'.gif')
     SCREEN.addshape(g+'.gif')
+
 
 POLYGON.speed(0)
 """Will count till 96 for squares"""
@@ -481,6 +481,17 @@ for i in range(6):
 
 print("COUNT", COUNT)
 print(square_dict)
+
+star = {"R":{"bR1":BR1,"bR2":BR2, "rR1":RR1, "rR2":RR2, "gR1":GR1, "gR2":GR2}, 
+        "B":{"bB1":BB1,"bB2":BB2, "rB1":RB1, "rB2":RB2, "gB1":GB1, "gB2":GB2},
+        "N":{"bN1":BN1,"bN2":BN2, "rN1":RN1, "rN2":RN2, "gN1":GN1, "gN2":GN2}, 
+        "K":{"bK":BK,"rK":RK,"gK":GK},
+        "Q":{"bQ":BQ,"rQ":RQ,"gQ":GQ},
+        "P":{"bP1":BP1,"bP2":BP2,"bP3":BP3,"bP4":BP4,"bP5":BP5,"bP6":BP6,"bP7":BP7,"bP8":BP8,
+             "gP1":GP1,"gP2":GP2,"gP3":GP3,"gP4":GP4,"gP5":GP5,"gP6":GP6,"gP7":GP7,"gP8":GP8,
+             "rP1":RP1,"rP2":RP2,"rP3":RP3,"rP4":RP4,"rP5":RP5,"rP6":RP6,"rP7":RP7,"rP8":RP8
+            }
+        }
 #---------------------BLUE
 
 def start_pos(clr, destination, gif):
@@ -509,46 +520,69 @@ def rook_validate(piece, desti):
                 print("22222222222",key[1:],desti[1:])
                 return True
             else:
-                print("Haddd")
                 return False
     print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
      
-def bishop_validate():
+def bishop_validate(piece, desti):
     """validates the bishop moves"""
-def knight_validate():
-    """validates the knight moves"""
+    loc = piece.pos()
+    for key, value in square_dict.items():
+        if value['centro'] == (loc):
+            print("1111111111111111",key[0],desti[0])
+            print("22222222222",key[1],desti[1])
+            if key[0] == desti[0] and key[1:] == desti[1:]:
+                print("1111111111111111",key[0],desti[0])
+                return True
+            else:
+                return False
 
 def queen_validate():
     """validates the queen moves"""
 
+def pawn_validate(piece, desti):
+    """validates the pawn moves"""
+    loc = piece.pos()
+    for key, value in square_dict.items():
+        if value['centro'] == (loc):
+            print(int(key[1:])+1)
+            if key[0] == desti[0] and str(int(key[1:])+1) == desti[1:]:
+                print("1111111111111111",int(key[1:])+1,desti[1])
+                print("1111111111111111",key[0],desti[0])
+                return True
+            else:
+                return False
+
 def king_validate():
     """validates the king moves"""
 
-def pawn_validate():
-    """validates the pawn moves"""
-    
+def knight_validate():
+    """validates the knight moves"""
 
+def get_pos(piece):
+    loc = piece.pos()
+    for key, value in square_dict.items():
+        if value['centro'] == (loc):
+            print("VVVVVVEEEEEEEEEEDDDDDDDDD",key)
 
-def move(user_input, desti, clr, gif):
-    #print('user_input++++++++++++++++++++++++++++++++++++++++++', user_input)
-    for piece, pic in zip(clr, PIECES):
-        if "R1" or "R2" in user_input:
-            if rook_validate(piece, desti)==True:
-                piece.setpos(square_dict[desti]['centro'])
-                break
-            else:
-                print("input AGAIN")
-            break
-        """ if "B1" or "B2" in user_input:
-            bishop_validate()
-        if "N1" or "N2" in user_input:
-            knight_validate()
-        if "Q" in user_input:
-            queen_validate()
-        if "K" in user_input:
-            king_validate()
-        if "P" in user_input:
-            pawn_validate() """
+def move(p, desti):
+    if p[1]=="R":
+        if rook_validate(star['R'][p], desti):
+            star['R'][p].setpos(square_dict[desti]['centro'])
+        else:
+            print("Error")
+    if p[1]=="B":
+        star['B'][p].setpos(square_dict[desti]['centro'])
+    if p[1]=="N":
+        star['N'][p].setpos(square_dict[desti]['centro'])
+    if p[1]=="K":
+        star['K'][p].setpos(square_dict[desti]['centro'])
+    if p[1]=="Q":
+        star['Q'][p].setpos(square_dict[desti]['centro'])
+    if p[1]=="P":
+        if pawn_validate(star['P'][p], desti):
+            star['P'][p].setpos(square_dict[desti]['centro'])
+        else:
+            print("Error")
 
 con = 1
 ex = 0
@@ -557,21 +591,21 @@ while ex != 'y':
     if con%3 == 1 or con == 1:
         print("BLUE plays")
         b = input("select piece")#R1.....R2
-        bb = input('destination')#bR1
-        p = 'b'+b
-        move(p, bb, BLUE, BLUE_STR)
+        bb = input('destination')#H4
+        p = 'b'+b#bR1
+        move(p, bb)#, BLUE, BLUE_STR)
     elif con%3 == 2 or con == 2:
         print("RED plays")
         b = input("select piece")
         bb = input('destination')
         p = 'r'+b
-        move(p, bb, RED, RED_STR)
+        move(p, bb)#, RED, RED_STR)
     elif con%3 == 0:
         print("GREEN plays")
         b = input("select piece")
         bb = input('destination')
         p = 'g'+b
-        move(p, bb, GREEN, GREEN_STR)
+        move(p, bb)#, GREEN, GREEN_STR)
         ex = input('exit? ---> y/n')
     con += 1
 
