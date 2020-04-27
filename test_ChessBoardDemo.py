@@ -711,17 +711,16 @@ def knight_validate(piece, initial_pos, desti):
             desti_pos_matrix = key
         
     if initial_pos[1:] == desti[1:] and (str(int(initial_pos[1:])+1) == desti[1:] or str(int(initial_pos[1:])-1) == desti[1:]):# C3 -> C2 or C3 -> C4
-        
         return True
-    if (initial_pos[0] in extreme_column) and (desti[0] in extreme_column):
-        
+    elif (initial_pos in "g_3","g_4","g_5") and (desti in "g_3","g_4","g_5"):
         return True
-    elif (initial_pos[0] in extreme_row) and (desti[0] in extreme_row):
+    if (key[1:] in extreme_column) and (desti[1:] in extreme_column):
+        return True
+    elif (key[0] in extreme_row) and (desti[0] in extreme_row):
         return True
     else:
-        return False
-
-
+        return False 
+            
     if key[0] == desti[0]:
         return True
     elif key[1:] == desti[1:] or key[1:] == desti[1:]:
@@ -859,16 +858,27 @@ class TestTrioChess(unittest.TestCase):
         self.assertEqual(rook_validate(BR1, 'G10', 'I10'), True)#Front
 
     def test_red_Knight_validate(self):
-        self.assertEqual(knight_validate(BK, 'G7', 'H12'), False)#Back
-        self.assertNotEqual(knight_validate(BK, 'G10', 'G3'), True)#Horizontal
-        self.assertEqual(knight_validate(BK, 'F4', 'G4'), False)#Right
-        self.assertEqual(knight_validate(BK, 'G10', 'I10'), False)#Front
+        self.assertEqual(knight_validate(BK, 'G7', 'H12'), True)#Back
+        self.assertNotEqual(knight_validate(BK, 'G10', 'G3'), False)#Horizontal
+        self.assertEqual(knight_validate(BK, 'F4', 'G4'), True)#Right
+        self.assertEqual(knight_validate(BK, 'G10', 'I10'), True)#Front
 
     def test_green_king_validate(self):
         self.assertEqual(king_validate(BK, 'G10', 'I10'), False)#Front
         self.assertEqual(king_validate(BK, 'B3', 'C4'), True)#Front
         self.assertEqual(king_validate(BK, 'G1', 'A7'), False)#Front
-        
+        self.assertEqual(knight_validate(BN1, 'E9', 'J10'), True) #test more
+        self.assertEqual(knight_validate(BN1, 'E9', 'I11'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'F11'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'G10'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'G4'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'F3'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'D3'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'C4'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'I6'), True)
+        self.assertEqual(knight_validate(BN1, 'E9', 'J5'), True)
+            
+            
 
 if __name__ == '__main__':
     print('Running Trio Chess Game unit tests')
